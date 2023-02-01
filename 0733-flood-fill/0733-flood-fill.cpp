@@ -19,7 +19,7 @@ public:
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
         
         int pc=image[sr][sc];
-        if(color==pc){
+        if(color==pc){ //why?
             return image;
         }
         fill_n(image,color,sr,sc,pc);
