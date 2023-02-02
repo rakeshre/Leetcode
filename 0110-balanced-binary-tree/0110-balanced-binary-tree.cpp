@@ -11,13 +11,33 @@
  */
 class Solution {
 public:
+    /*
     int height(TreeNode *root){
         if(root==nullptr){
             return 0;
         }
         return max(height(root->left),height(root->right))+1;
     }
+    */
+    bool isBalancedHelper(TreeNode* root, int &height){
+        if(root==nullptr){
+            height=0;
+            return true;
+        }
+        int left=0, right=0;
+        bool leftBal=isBalancedHelper(root->left,left);
+        bool rightBal=isBalancedHelper(root->right,right);
+        if(abs(left-right)>1){
+            return false;
+        }
+        if(leftBal==false ||rightBal==false){
+            return false;
+        }
+        height=max(left,right)+1;
+        return true;
+    }
     bool isBalanced(TreeNode* root) {
+        /*
         if(root==nullptr){
             return true;
         }
@@ -30,5 +50,8 @@ public:
             return false;
         }
         return true;
+        */
+        int height=0;
+        return isBalancedHelper(root,height);
     }
 };
