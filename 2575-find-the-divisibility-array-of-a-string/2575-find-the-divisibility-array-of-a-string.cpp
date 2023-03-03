@@ -6,7 +6,7 @@ public:
         vector<int> res;
         for(int i=0;i<n;++i){
             val= (val*10 + word[i]-'0')%m;
-            if(val%m==0){
+            if(val==0){
                 res.push_back(1);
             }else{
                 res.push_back(0);
