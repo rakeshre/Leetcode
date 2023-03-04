@@ -8,7 +8,7 @@ public:
         while(i<n/2 && j<n){
             if(nums[i]*2<=nums[j]){
                 res+=2;
-                cout<<i<<" "<<j<<endl;
+                //cout<<i<<" "<<j<<endl;
                 i++;
                 j++;
                 
