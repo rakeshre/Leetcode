@@ -1,22 +1,23 @@
 class Solution {
 public:
-    
     vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
-        vector<vector<int>> res;
         priority_queue<vector<int>> pq;
-        //when a vector is pushed into priority queue, it is sorted based on the first element.
-        for(auto x:points){
-            int d=x[0]*x[0]+x[1]*x[1];
-            pq.push({d,x[0],x[1]});
+        for(auto point: points){
+            int x=point[0];
+            int y=point[1];
+            int d=x*x+y*y;
+            pq.push({d,x,y});
             if(pq.size()>k){
                 pq.pop();
             }
         }
-        for(int i=0;i<k;++i){
-            vector<int> pt=pq.top();
+        vector<vector<int>> ans;
+        while(!pq.empty()){
+            auto p=pq.top();
             pq.pop();
-            res.push_back({pt[1],pt[2]});
+            ans.push_back({p[1],p[2]});
+            
         }
-        return res;
+        return ans;
     }
 };
