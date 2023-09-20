@@ -1,40 +1,39 @@
 class Solution {
 public:
+    bool isSafe(vector<vector<int>>& mat, int x,int y){
+        int m=mat.size();
+        int n=mat[0].size();
+        if(x>=0 && x<m && y>=0 && y<n){
+            return true;
+        }
+        return false;
+    }
     vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
         int m=mat.size();
         int n=mat[0].size();
-        vector<vector<int>> visited(m,vector<int>(n,0));
-        vector<vector<int>> distance(m,vector<int>(n,0));
-        queue<pair<pair<int,int>,int>> q;
-        int nextRow[]={-1,0,+1,0};
-        int nextCol[]={0,+1,0,-1};
+        queue<pair<int,int>> q;
         for(int i=0;i<m;++i){
             for(int j=0;j<n;++j){
                 if(mat[i][j]==0){
-                    q.push({{i,j},0});
-                    visited[i][j]=1;
-                    distance[i][j]=0;
+                    q.push({i,j});
+                }else{
+                    mat[i][j]=INT_MAX;
                 }
             }
         }
+        vector<pair<int,int>> dist{{0,1},{0,-1},{1,0},{-1,0}};
         while(!q.empty()){
-            int x=q.front().first.first;
-            int y=q.front().first.second;
-            int d=q.front().second;
-            
-            //distance[x][y]=d;
+            auto pr=q.front();
+            q.pop();
             for(int i=0;i<4;++i){
-                int xi=x+nextRow[i];
-                int yi=y+nextCol[i];
-                if(xi>=0 && xi<m && yi>=0 && yi<n && !visited[xi][yi]){
-                    visited[xi][yi]=1;
-                    distance[xi][yi]=d+1;
-                    q.push({{xi,yi},d+1});
+                int xi=pr.first+dist[i].first;
+                int yi=pr.second+dist[i].second;
+                if(isSafe(mat,xi,yi) && mat[xi][yi]>mat[pr.first][pr.second]+1){
+                    mat[xi][yi]=mat[pr.first][pr.second]+1;
+                    q.push({xi,yi});
                 }
             }
-            q.pop();
-            
         }
-        return distance;
+        return mat;
     }
 };
