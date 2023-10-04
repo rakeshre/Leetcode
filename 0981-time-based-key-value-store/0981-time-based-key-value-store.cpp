@@ -1,27 +1,24 @@
 class TimeMap {
 public:
-    unordered_map<string, map<int, string>> keyTimeMap;
+    unordered_map<string, map<int, string>> kvstore;
     TimeMap() {
     }
     
     void set(string key, string value, int timestamp) {
-        keyTimeMap[key][timestamp] = value;
+        kvstore[key][timestamp]=value;
     }
     
     string get(string key, int timestamp) {
-        
-        if (keyTimeMap.find(key) == keyTimeMap.end()) {
+        if(kvstore.find(key)==kvstore.end()){
+            return "";
+        } //this line prevents tle.
+        // auto x=kvstore[key];
+        // auto itr=x.upper_bound(timestamp);
+        auto itr=kvstore[key].upper_bound(timestamp);//writing it as one line to prevent tle. 
+        if(itr==kvstore[key].begin()){
             return "";
         }
-        
-        auto it = keyTimeMap[key].upper_bound(timestamp);
-        // If iterator points to first element it means, no time <= timestamp exists.
-        if (it == keyTimeMap[key].begin()) {
-            return "";
-        }
-        
-        // Return value stored at previous position of current iterator.
-        return prev(it)->second;
+            return prev(itr)->second;
     }
 };
 
