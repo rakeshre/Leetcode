@@ -16,7 +16,10 @@ public:
             return nullptr;
         }
         int pivot=left;
-        while(inorder[pivot]!=preorder[rootInd]){
+        for(int i=pivot;i<=right;++i){
+            if(inorder[pivot]==preorder[rootInd]){
+                break;
+            }
             pivot++;
         }
         rootInd=rootInd+1;
