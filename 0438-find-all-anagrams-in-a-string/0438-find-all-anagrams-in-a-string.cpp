@@ -16,17 +16,20 @@ public:
             s_m[s[i]-'a']++;
             right++;
         }
-        right--;
+        //right--;
         while(right<s_l){
             if(s_m==p_m){
                 res.push_back(left);
             }
-            if(right!=s_l-1){
-                s_m[s[right+1]-'a']++;
+            if(right!=s_l){
+                s_m[s[right]-'a']++;
                 s_m[s[left]-'a']--;
             }
             right++;
             left++;
+        }
+        if(s_m==p_m){
+                res.push_back(left);
         }
         return res; 
     }
